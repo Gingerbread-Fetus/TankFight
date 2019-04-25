@@ -26,6 +26,8 @@ public:
 
 private:
 	bool GetSightRayHitLocation(FVector& OutHitLocation) const;
+
+	bool GetLookDirection(FVector2D ScreenLocation, FVector & LookDirection) const;
 	
 	ATank* GetControlledTank() const;
 
