@@ -22,7 +22,6 @@ void ATankPlayerController::BeginPlay()
 void ATankPlayerController::Tick(float DeltaTime)
 {
 	Super::Tick(DeltaTime);
-	UE_LOG(LogTemp, Warning, TEXT("Player Controller Ticking"));
 	AimTowardCrosshair();
 }
 
@@ -38,9 +37,7 @@ void ATankPlayerController::AimTowardCrosshair()
 
 	if (GetSightRayHitLocation(HitLocation)) //Is going to ray trace.
 	{
-		UE_LOG(LogTemp, Warning, TEXT("Hit Location: %s"), *HitLocation.ToString());
-				
-		//TODO Tell controlled tank to aim at this point. 
+		GetControlledTank()->AimAt(HitLocation);
 	}
 }
 
