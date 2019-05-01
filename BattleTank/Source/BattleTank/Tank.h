@@ -7,7 +7,7 @@
 #include "Tank.generated.h"// Required put new includes above
 
 class UTankBarrel;
-class TankAimingComponent;
+class UTankAimingComponent;
 
 UCLASS()
 class BATTLETANK_API ATank : public APawn
