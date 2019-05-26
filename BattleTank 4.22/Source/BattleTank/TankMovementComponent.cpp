@@ -7,15 +7,20 @@
 
 void UTankMovementComponent::IntendMoveForward(float Throw) 
 {
-	UE_LOG(LogTemp, Warning, TEXT("Intend move forward throw: %f."), Throw);
-
+	if (!LeftTrackToSet || !RightTrackToSet) { return; }
 	LeftTrack->SetThrottle(Throw);
 	RightTrack->SetThrottle(Throw);
 }
 
-void UTankMovementComponent::Initialise(UTracks* LeftTrackToSet, UTracks* RightTrackToSet)
+void UTankMovementComponent::IntendTurnRight(float Throw) 
 {
 	if (!LeftTrackToSet || !RightTrackToSet) { return; }
+	LeftTrack->SetThrottle(Throw);
+	RightTrack->SetThrottle(-Throw);
+}
+
+void UTankMovementComponent::Initialise(UTracks* LeftTrackToSet, UTracks* RightTrackToSet)
+{
 	LeftTrack = LeftTrackToSet;
 	RightTrack = RightTrackToSet;
 	//TODO Prevent Double speed from double control use.
