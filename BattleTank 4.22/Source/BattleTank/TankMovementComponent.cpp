@@ -7,14 +7,14 @@
 
 void UTankMovementComponent::IntendMoveForward(float Throw) 
 {
-	if (!LeftTrackToSet || !RightTrackToSet) { return; }
+	if (!LeftTrack || !RightTrack) { return; }
 	LeftTrack->SetThrottle(Throw);
 	RightTrack->SetThrottle(Throw);
 }
 
 void UTankMovementComponent::IntendTurnRight(float Throw) 
 {
-	if (!LeftTrackToSet || !RightTrackToSet) { return; }
+	if (!LeftTrack || !RightTrack) { return; }
 	LeftTrack->SetThrottle(Throw);
 	RightTrack->SetThrottle(-Throw);
 }
