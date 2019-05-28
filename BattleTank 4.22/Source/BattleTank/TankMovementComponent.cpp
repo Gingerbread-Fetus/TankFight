@@ -25,3 +25,12 @@ void UTankMovementComponent::Initialise(UTracks* LeftTrackToSet, UTracks* RightT
 	RightTrack = RightTrackToSet;
 	//TODO Prevent Double speed from double control use.
 }
+
+void UTankMovementComponent::RequestDirectMove(const FVector & MoveVelocity, bool bForceMaxSpeed)
+{
+	//No need to call super since we are replacing a method.
+
+	auto TankName = GetOwner()->GetName();
+	auto VelocityAsString = MoveVelocity.ToString();
+	UE_LOG(LogTemp, Warning, TEXT("%s vectoring towards %s"), *TankName, *VelocityAsString);
+}

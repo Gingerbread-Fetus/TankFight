@@ -21,5 +21,8 @@ public:
 	void BeginPlay() override;
 
 	void Tick(float DeltaTime) override;
+
+	//How close the tank can get.
+	float AcceptanceRadius = 3000;
 private:
 };
