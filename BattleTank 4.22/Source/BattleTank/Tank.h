@@ -19,9 +19,7 @@ class BATTLETANK_API ATank : public APawn
 	GENERATED_BODY()
 
 public:
-	// Called when the game starts or when spawned
-	virtual void BeginPlay() override;
-
+	
 	void AimAt(FVector HitLocation);
 
 	UFUNCTION(BlueprintCallable, Category = Setup)
@@ -36,6 +34,9 @@ protected:
 private:
 	// Sets default values for this pawn's properties
 	ATank();
+
+	// Called when the game starts or when spawned
+	virtual void BeginPlay() override;
 
 	UPROPERTY(EditDefaultsOnly, Category = Firing)
 	float LaunchSpeed = 4000;
