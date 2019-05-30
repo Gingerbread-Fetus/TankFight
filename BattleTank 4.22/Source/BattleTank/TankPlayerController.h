@@ -32,7 +32,7 @@ private:
 
 	bool GetLookVectorHitLocation(FVector LookDirection, FVector & HitLocation) const;
 	
-	ATank* GetControlledTank() const;
+	
 
 	//Moves barrel towards the crosshair
 	void AimTowardCrosshair();
@@ -43,4 +43,7 @@ private:
 		float CrosshairYLocation = 0.3333;
 	UPROPERTY(EditDefaultsOnly)
 		float LineTraceRange = 1000000;
+protected:
+	UFUNCTION(BlueprintCallable, Category = "Setup")
+	ATank* GetControlledTank() const;
 };
