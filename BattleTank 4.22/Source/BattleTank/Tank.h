@@ -25,12 +25,6 @@ public:
 	void AimAt(FVector HitLocation);
 
 	UFUNCTION(BlueprintCallable, Category = Setup)
-	void SetBarrelReference(UTankBarrel* BarrelToSet);
-
-	UFUNCTION(BlueprintCallable, Category = Setup)
-	void SetTurretReference(UTankTurret* TurretToSet);
-	
-	UFUNCTION(BlueprintCallable, Category = Setup)
 	void Fire();
 
 protected:
@@ -41,10 +35,7 @@ protected:
 
 private:
 	// Sets default values for this pawn's properties
-	ATank();	
-
-	// Called to bind functionality to input
-	virtual void SetupPlayerInputComponent(class UInputComponent* PlayerInputComponent) override;
+	ATank();
 
 	UPROPERTY(EditDefaultsOnly, Category = Firing)
 	float LaunchSpeed = 4000;
@@ -56,8 +47,7 @@ private:
 	TSubclassOf<AProjectile> ProjectileBlueprint; //Alternatively you can use TSubclassOf<UDamageType> DamageType;
 
 	//Local reference of barrel for spawning projectile
-	UTankBarrel* Barrel = nullptr;
-
+	UTankBarrel* Barrel = nullptr; //TODO remove this
 
 	double LastFireTime = 0;
 };
