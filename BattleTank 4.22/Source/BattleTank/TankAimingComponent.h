@@ -41,7 +41,7 @@ protected:
 	// Called when the game starts
 	virtual void BeginPlay() override;
 	UPROPERTY(BlueprintReadOnly, Category = "State")
-	EFiringState FiringStatus = EFiringState::Aiming;
+	EFiringState FiringStatus = EFiringState::Locked;
 
 private:	
 	UTankBarrel* Barrel = nullptr;

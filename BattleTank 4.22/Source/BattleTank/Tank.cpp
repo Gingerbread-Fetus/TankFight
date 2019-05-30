@@ -18,6 +18,7 @@ ATank::ATank()
 void ATank::BeginPlay()
 {
 	Super::BeginPlay();	//This is required for BP begin play to work.
+	UE_LOG(LogTemp, Warning, TEXT("%s DONKEY: BeginPlay"), *GetName());
 }
 
 void ATank::AimAt(FVector HitLocation)
