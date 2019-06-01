@@ -6,6 +6,13 @@
 UTracks::UTracks()
 {
 	PrimaryComponentTick.bCanEverTick = true;
+	SetNotifyRigidBodyCollision(true);
+}
+
+void UTracks::BeginPlay()
+{
+	Super::BeginPlay();
+	OnComponentHit.AddDynamic(this, &UTracks::OnHit);
 }
 
 void UTracks::TickComponent(float DeltaTime, ELevelTick TickType, FActorComponentTickFunction * ThisTickFunction)
@@ -18,6 +25,11 @@ void UTracks::TickComponent(float DeltaTime, ELevelTick TickType, FActorComponen
 	auto TankRoot = Cast<UStaticMeshComponent>(GetOwner()->GetRootComponent());
 	auto CorrectionForce = (TankRoot->GetMass() * CorrectionAcceleration) / 2; //Two tracks.
 	TankRoot->AddForce(CorrectionForce);
+}
+
+void UTracks::OnHit(UPrimitiveComponent * HitComponent, AActor * OtherActor, UPrimitiveComponent * OtherComponent, FVector NormalImpulse, const FHitResult & Hit)
+{
+	UE_LOG(LogTemp, Warning, TEXT("I'm hit."));
 }
 
 void UTracks::SetThrottle(float Throttle)
