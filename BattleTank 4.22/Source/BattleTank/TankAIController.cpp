@@ -1,15 +1,13 @@
 // Fill out your copyright notice in the Description page of Project Settings.
 
 #include "TankAIController.h"
+#include "TankAimingComponent.h"
 #include "Engine/World.h"
-#include "Tank.h"
 //Depends on movement component via pathfinding system
 
 void ATankAIController::BeginPlay()
 {
 	Super::BeginPlay();
-	
-	UE_LOG(LogTemp, Warning, TEXT("TankAIController Begin Play"));
 }
 
 void ATankAIController::Tick(float DeltaTime)
@@ -17,17 +15,21 @@ void ATankAIController::Tick(float DeltaTime)
 	Super::Tick(DeltaTime);
 
 	//Get player
-	auto PlayerTank = Cast<ATank>(GetWorld()->GetFirstPlayerController()->GetPawn());
-	ATank* ControlledTank = Cast<ATank>(GetPawn());
+	auto PlayerTank = GetWorld()->GetFirstPlayerController()->GetPawn();
+	auto ControlledTank = GetPawn();
+	
+	if (!ensure(PlayerTank) && ControlledTank) { return; }
+	
+	MoveToActor(PlayerTank, AcceptanceRadius); // TODO check radius is in cm
 
-	if (ensure(PlayerTank))
-	{
-		MoveToActor(PlayerTank, AcceptanceRadius); // TODO check radius is in cm
-		//Aim towards the player
-		ControlledTank->AimAt(PlayerTank->GetActorLocation());
-		
-		//ControlledTank->Fire();// TODO: Limit firing rate
-	}
+	//Aim towards the player
+	auto AimingComponent = ControlledTank->FindComponentByClass<UTankAimingComponent>();
+	if (!ensure(AimingComponent)) { return; }
+	AimingComponent->AimAt(PlayerTank->GetActorLocation());
+
+	// TODO fix firing
+	//ControlledTank->Fire();// TODO: Limit firing rate
+	
 }
 
 

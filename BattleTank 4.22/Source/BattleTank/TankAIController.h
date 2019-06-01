@@ -7,8 +7,6 @@
 #include "AIModule/Classes/AIController.h"
 #include "TankAIController.generated.h"
 
-class ATank;
-
 /**
  * 
  */
