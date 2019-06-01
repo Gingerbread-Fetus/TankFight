@@ -26,9 +26,7 @@ void ATankAIController::Tick(float DeltaTime)
 	auto AimingComponent = ControlledTank->FindComponentByClass<UTankAimingComponent>();
 	if (!ensure(AimingComponent)) { return; }
 	AimingComponent->AimAt(PlayerTank->GetActorLocation());
-
-	UE_LOG(LogTemp, Warning, TEXT("Tank should be firing."));
-
+	
 	AimingComponent->Fire(); // TODO limit firing rate
 	
 }

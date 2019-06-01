@@ -33,10 +33,7 @@ public:
 
 	UFUNCTION(BlueprintCallable, Category = "Setup")
 	void Fire();
-
-	// Called every frame
-	virtual void TickComponent(float DeltaTime, ELevelTick TickType, FActorComponentTickFunction* ThisTickFunction) override;
-
+	
 	void AimAt(FVector HitLocation);
 
 protected:
@@ -44,13 +41,15 @@ protected:
 	virtual void BeginPlay() override;
 
 	UPROPERTY(BlueprintReadOnly, Category = "State")
-	EFiringState FiringStatus = EFiringState::Locked;
+	EFiringState FiringStatus = EFiringState::Reloading;
 
 private:	
 	// Sets default values for this component's properties
 	UTankAimingComponent();
 
 	void MoveBarrelTowards(FVector AimDirection);
+
+	virtual void TickComponent(float DeltaTime, enum ELevelTick TickType, FActorComponentTickFunction *ThisTickFunction) override;
 	
 	UTankBarrel* Barrel = nullptr;
 	UTankTurret* Turret = nullptr;
