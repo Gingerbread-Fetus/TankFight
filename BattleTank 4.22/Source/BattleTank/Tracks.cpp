@@ -15,31 +15,35 @@ void UTracks::BeginPlay()
 	OnComponentHit.AddDynamic(this, &UTracks::OnHit);
 }
 
-void UTracks::TickComponent(float DeltaTime, ELevelTick TickType, FActorComponentTickFunction * ThisTickFunction)
+void UTracks::OnHit(UPrimitiveComponent * HitComponent, AActor * OtherActor, UPrimitiveComponent * OtherComponent, FVector NormalImpulse, const FHitResult & Hit)
 {
-	Super::TickComponent(DeltaTime, TickType, ThisTickFunction);
+	DriveTrack();
+	ApplySidewaysForce();
+	CurrentThrottle = 0;
+}
 
-	//Calculate the slippage speed
+void UTracks::ApplySidewaysForce()
+{
+	//Work out acceleration this frame to correct.
 	auto SlipSpeed = FVector::DotProduct(GetRightVector(), GetComponentVelocity());
+	auto DeltaTime = GetWorld()->GetDeltaSeconds();
 	auto CorrectionAcceleration = -SlipSpeed / DeltaTime * GetRightVector();
+
+	//Calculate and apply sideways force.
 	auto TankRoot = Cast<UStaticMeshComponent>(GetOwner()->GetRootComponent());
 	auto CorrectionForce = (TankRoot->GetMass() * CorrectionAcceleration) / 2; //Two tracks.
 	TankRoot->AddForce(CorrectionForce);
 }
 
-void UTracks::OnHit(UPrimitiveComponent * HitComponent, AActor * OtherActor, UPrimitiveComponent * OtherComponent, FVector NormalImpulse, const FHitResult & Hit)
+void UTracks::DriveTrack()
 {
-	UE_LOG(LogTemp, Warning, TEXT("I'm hit."));
+	auto ForceApplied = GetForwardVector() * CurrentThrottle * TrackMaxDrivingForce;
+	auto ForceLocation = GetComponentLocation();
+	auto TankRoot = Cast<UPrimitiveComponent>(GetOwner()->GetRootComponent());
+	TankRoot->AddForceAtLocation(ForceApplied, ForceLocation);
 }
 
 void UTracks::SetThrottle(float Throttle)
 {
-	auto Name = GetName();
-	//UE_LOG(LogTemp, Warning, TEXT("%s throttle: %f."), *Name, Throttle);
-
-	// TODO clamp throttle value so player can't over-drive
-	auto ForceApplied = GetForwardVector() * Throttle * TrackMaxDrivingForce;
-	auto ForceLocation = GetComponentLocation();
-	auto TankRoot = Cast<UPrimitiveComponent>(GetOwner()->GetRootComponent());
-	TankRoot->AddForceAtLocation(ForceApplied, ForceLocation);
+	CurrentThrottle = FMath::Clamp<float>(CurrentThrottle + Throttle, -1, 1);
 }
