@@ -20,7 +20,11 @@ public:
 
 	void Tick(float DeltaTime) override;
 
-	//How close the tank can get.
-	float AcceptanceRadius = 3000;
+	
 private:
+
+protected:
+	//How close the tank can get.
+	UPROPERTY(EditDefaultsOnly, Category = "Setup")
+	float AcceptanceRadius = 8000;
 };
