@@ -13,7 +13,8 @@ enum class EFiringState : uint8
 {
 	Reloading,
 	Aiming,
-	Locked
+	Locked,
+	OutOfAmmo
 };
 
 //Forward declaration.
@@ -38,12 +39,17 @@ public:
 
 	EFiringState GetFiringState() const;
 
+	int GetAmmoCount() const;
+
 protected:
 	// Called when the game starts
 	virtual void BeginPlay() override;
 
 	UPROPERTY(BlueprintReadOnly, Category = "State")
 	EFiringState FiringStatus = EFiringState::Reloading;
+
+	UPROPERTY(BlueprintReadOnly, Category = "Setup")
+	int Ammo = 3;
 
 
 private:	
