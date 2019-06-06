@@ -39,7 +39,7 @@ public:
 
 	EFiringState GetFiringState() const;
 
-	int GetAmmoCount() const;
+	int32 GetAmmoCount() const;
 
 protected:
 	// Called when the game starts
@@ -47,11 +47,7 @@ protected:
 
 	UPROPERTY(BlueprintReadOnly, Category = "State")
 	EFiringState FiringStatus = EFiringState::Reloading;
-
-	UPROPERTY(BlueprintReadOnly, Category = "Setup")
-	int Ammo = 3;
-
-
+		
 private:	
 	// Sets default values for this component's properties
 	UTankAimingComponent();
@@ -68,11 +64,14 @@ private:
 	UPROPERTY(EditDefaultsOnly, Category = Setup)
 	TSubclassOf<AProjectile> ProjectileBlueprint; //Alternatively you can use TSubclassOf<UDamageType> DamageType;
 
-	UPROPERTY(EditDefaultsOnly, Category = Firing)
+	UPROPERTY(EditDefaultsOnly, Category = "Firing")
 	float LaunchSpeed = 4000;
 
-	UPROPERTY(EditDefaultsOnly, Category = Firing)
+	UPROPERTY(EditDefaultsOnly, Category = "Firing")
 	float ReloadTimeInSeconds = 3;
+
+	UPROPERTY(EditDefaultsOnly, Category = "Firing")
+	int32 Ammo = 3;
 		
 	double LastFireTime = 0;
 
