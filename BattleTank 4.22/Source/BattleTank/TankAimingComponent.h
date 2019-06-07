@@ -61,7 +61,7 @@ private:
 	UTankBarrel* Barrel = nullptr;
 	UTankTurret* Turret = nullptr;
 
-	UPROPERTY(EditDefaultsOnly, Category = Setup)
+	UPROPERTY(EditDefaultsOnly, Category = "Setup")
 	TSubclassOf<AProjectile> ProjectileBlueprint; //Alternatively you can use TSubclassOf<UDamageType> DamageType;
 
 	UPROPERTY(EditDefaultsOnly, Category = "Firing")
