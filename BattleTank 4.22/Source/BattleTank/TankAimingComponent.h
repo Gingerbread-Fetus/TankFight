@@ -34,6 +34,9 @@ public:
 
 	UFUNCTION(BlueprintCallable, Category = "Setup")
 	void Fire();
+
+	UFUNCTION(BluePrintCallable, Category = "Setup")
+	void SetProjectile(TSubclassOf<AProjectile> ProjectileBlueprintToSet);
 	
 	void AimAt(FVector HitLocation);
 
@@ -47,7 +50,7 @@ protected:
 
 	UPROPERTY(BlueprintReadOnly, Category = "State")
 	EFiringState FiringStatus = EFiringState::Reloading;
-		
+			
 private:	
 	// Sets default values for this component's properties
 	UTankAimingComponent();
@@ -61,9 +64,6 @@ private:
 	UTankBarrel* Barrel = nullptr;
 	UTankTurret* Turret = nullptr;
 
-	UPROPERTY(EditDefaultsOnly, Category = "Setup")
-	TSubclassOf<AProjectile> ProjectileBlueprint; //Alternatively you can use TSubclassOf<UDamageType> DamageType;
-
 	UPROPERTY(EditDefaultsOnly, Category = "Firing")
 	float LaunchSpeed = 4000;
 
@@ -76,5 +76,8 @@ private:
 	double LastFireTime = 0;
 
 	FVector AimDirection = FVector(0);
+
+	UPROPERTY(EditDefaultsOnly, Category = "Setup")
+	TSubclassOf<AProjectile> ProjectileBlueprint; //Alternatively you can use TSubclassOf<UDamageType> DamageType;
 	
 };

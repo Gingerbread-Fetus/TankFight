@@ -77,6 +77,11 @@ void UTankAimingComponent::Fire()
 	}
 }
 
+void UTankAimingComponent::SetProjectile(TSubclassOf<AProjectile> ProjectileBlueprintToSet)
+{
+	ProjectileBlueprint = ProjectileBlueprintToSet;
+}
+
 void UTankAimingComponent::AimAt(FVector HitLocation)
 {
 	if (!ensure(Barrel)) { return; }
