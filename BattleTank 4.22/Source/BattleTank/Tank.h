@@ -26,11 +26,13 @@ public:
 
 private:
 
+	virtual void BeginPlay() override;
+
 	UPROPERTY(EditDefaultsOnly, Category = "Setup")
 	int32 StartingHealth = 100;
 
 	UPROPERTY(VisibleAnywhere, Category = "Health")
-	int32 CurrentHealth = StartingHealth;
+	int32 CurrentHealth;//Initialized in Begin Play
 	// Sets default values for this pawn's properties
 	ATank();
 };
