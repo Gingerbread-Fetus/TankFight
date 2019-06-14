@@ -20,6 +20,8 @@ public:
 
 	// Called every frame
 	virtual void Tick(float DeltaTime) override;
+
+	void AddDrivingForce(float ForceMagnitude);
 	
 	UPROPERTY(VisibleAnywhere, Category = "Components")
 	USphereComponent* Wheel;
@@ -32,6 +34,9 @@ public:
 	
 	UPROPERTY(VisibleAnywhere, Category = "Components")
 	UPhysicsConstraintComponent* WheelAxleConstraint;
+
+	float TotalForceMagnitudeThisFrame = 0;
+
 protected:
 	// Called when the game starts or when spawned
 	virtual void BeginPlay() override;
@@ -39,4 +44,8 @@ protected:
 private:
 	void SetUpConstraint();
 	
+	UFUNCTION()
+	void OnHit(UPrimitiveComponent* HitComponent, AActor* OtherActor, UPrimitiveComponent* OtherComp, FVector NormalImpulse, const FHitResult& Hit);
+
+	void ApplyForce();
 };
