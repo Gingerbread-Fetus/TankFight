@@ -5,6 +5,7 @@
 #include "CoreMinimal.h"
 #include "GameFramework/Actor.h"
 #include "Runtime/Engine/Classes/PhysicsEngine/PhysicsConstraintComponent.h"
+#include "Components/SphereComponent.h"
 #include "Components/StaticMeshComponent.h"
 #include "SprungWheel.generated.h"
 
@@ -21,10 +22,16 @@ public:
 	virtual void Tick(float DeltaTime) override;
 	
 	UPROPERTY(VisibleAnywhere, Category = "Components")
-	UStaticMeshComponent* Wheel;
+	USphereComponent* Wheel;
+	
+	UPROPERTY(VisibleAnywhere, Category = "Components")
+	USphereComponent* Axle;
 
 	UPROPERTY(VisibleAnywhere, Category = "Components")
 	UPhysicsConstraintComponent* MassWheelConstraint;
+	
+	UPROPERTY(VisibleAnywhere, Category = "Components")
+	UPhysicsConstraintComponent* WheelAxleConstraint;
 protected:
 	// Called when the game starts or when spawned
 	virtual void BeginPlay() override;

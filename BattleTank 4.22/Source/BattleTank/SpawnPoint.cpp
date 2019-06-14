@@ -23,5 +23,6 @@ void USpawnPoint::BeginPlay()
 	NewActor->AttachToComponent(this, FAttachmentTransformRules::KeepWorldTransform);
 
 	UGameplayStatics::FinishSpawningActor(NewActor, GetComponentTransform());
+	UE_LOG(LogTemp, Warning, TEXT("Spawner called."));
 }
 
